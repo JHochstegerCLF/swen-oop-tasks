@@ -1,5 +1,7 @@
 package at.fhtw.task1.model;
 
+import java.util.Objects;
+
 public class Coordinate {
     private int x;
     private int y;
@@ -48,13 +50,21 @@ public class Coordinate {
         return String.format("(%d, %d)", this.x, this.y);
     }
 
+    public boolean equals(Coordinate other) {
+        return x == other.x && y == other.y;
+    }
+
     public void subtractEqual(Coordinate other) {
         this.x -= other.getX();
         this.y -= other.getY();
     }
 
-    public final Coordinate NORTH = new Coordinate(0,1);
-    public final Coordinate EAST = new Coordinate(1,0);
-    public final Coordinate SOUTH = new Coordinate(0,-1);
-    public final Coordinate WEST = new Coordinate(-1,0);
+    public Coordinate mod(Coordinate other) {
+        return new Coordinate(this.x % other.getX(), this.y % other.getY());
+    }
+
+    public static final Coordinate NORTH = new Coordinate(0,1);
+    public static final Coordinate EAST = new Coordinate(1,0);
+    public static final Coordinate SOUTH = new Coordinate(0,-1);
+    public static final Coordinate WEST = new Coordinate(-1,0);
 }
