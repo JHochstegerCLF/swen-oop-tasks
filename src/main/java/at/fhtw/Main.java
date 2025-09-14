@@ -1,7 +1,9 @@
 package at.fhtw;
 
+import at.fhtw.task1.TaskOne;
+
 public class Main {
     public static void main(String[] args) {
-        System.out.println("Hello, World!");
+        TaskOne.runTask1();
     }
 }

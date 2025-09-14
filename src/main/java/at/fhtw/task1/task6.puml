@@ -1,0 +1,120 @@
+@startuml
+Actor <|-- Player
+Field <|-- Danger
+Field <|-- Relic
+Field <|-- Well
+Coordinate <-- Actor
+Coordinate <-- Field
+Coordinate <-- Danger
+Coordinate <-- Relic
+Coordinate <-- Well
+Coordinate <-- Map
+Map --> Field
+Map --> Player
+
+class Actor {
+    + Actor()
+    + Actor(Coordinate position, Coordinate maxPosition)
+    + Actor(int x, int y, int maxX, int maxY)
+    + std::ostream& operator<< (std::ostream& out, const Actor& c)
+    + Coordinate getPosition()
+    + void setPosition(const Coordinate newPosition)
+    + void move(const Coordinate direction)
+    # Coordinate position
+    # Coordinate maxPosition
+}
+
+class Coordinate {
+    + Coordinate()
+    + Coordinate(int x, int y)
+    + Coordinate operator+(Coordinate other)
+    + Coordinate &operator+=(Coordinate other)
+    + Coordinate operator-(Coordinate other)
+    + Coordinate operator%(int divisor)
+    + Coordinate operator%(Coordinate other)
+    + bool operator==(Coordinate other)
+    + std::ostream &operator<<(std::ostream &out, const Coordinate &c)
+    + int getX()
+    + int getY()
+    + void setX()
+    + void setY()
+    - int x
+    - int y
+}
+
+class Danger {
+    + Danger()
+    + Danger(Coordinate position)
+    + Danger(int x, int y)
+    + string getSymbol()
+    + int getClassId()
+}
+
+class Field {
+    + Field()
+    + Field(Coordinate position)
+    + Field(int x, int y)
+    + Coordinate getPosition()
+    + void setPosition(Coordinate newPosition)
+    + string getSymbol()
+    + int getClassId()
+    # Coordinate position
+}
+
+class Map {
+    + Map()
+    + Map(int width, int height, Player player)
+    + std::ostream& operator<< (std::ostream& out, const Map& m)
+    + std::vector<std::vector<std::unique_ptr<Field>>>& getMap()
+    + PLayer getPlayer()
+    + void serPlayer(Player newPlayer)
+    + int getCurrentFieldId()
+    + int getRelic()
+    + void clearCurrentField()
+    - std::unique_ptr<Field> getRandomField(Coordinate position)
+    - std::vector<std::vector<std::unique_ptr<Field>>> map
+    - Player player
+    - int danger
+    - int well
+    - int relic
+}
+
+class Player {
+    + Player()
+    + Player(Coordinate position, Coordinate maxPosition, int health, int relics)
+    + Player(Coordinate position, Coordinate maxPosition, int health)
+    + Player(Coordinate maxPosition, int health)
+    + std::ostream& operator<< (std::ostream& out, const Player& c)
+    + int getHealth()
+    + void setHealth()
+    + int getRelic()
+    + void reduceHealth()
+    + void increaseHealth()
+    + increaseRelic()
+    # int health
+    # int relics
+}
+
+class Relic {
+    + Relic()
+    + Relic(Coordinate position)
+    + Relic(int x, int y)
+    + string getSymbol()
+    + int getClassId()
+}
+
+class View {
+    + void printUI(Map map)
+    + char getMove()
+    + bool getNewGame()
+}
+
+class Well {
+    + Well()
+    + Well(Coordinate position)
+    + Well(int y, int x)
+    + string getSymbol()
+    + int getClassId()
+}
+
+@enduml
